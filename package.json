@@ -10,16 +10,10 @@
   "files": [
     "src",
     "lib",
-    "android",
     "ios",
     "cpp",
     "*.podspec",
     "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
@@ -30,14 +24,15 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "clean": "del-cli example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "release": "release-it"
   },
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "alert",
+    "toast"
   ],
   "repository": {
     "type": "git",

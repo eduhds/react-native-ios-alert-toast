@@ -1,8 +1,9 @@
+import React from 'react';
 import {
   requireNativeComponent,
   UIManager,
   Platform,
-  type ViewStyle,
+  StyleSheet,
 } from 'react-native';
 
 const LINKING_ERROR =
@@ -12,15 +13,30 @@ const LINKING_ERROR =
   '- You are not using Expo Go\n';
 
 type IosAlertToastProps = {
-  color: string;
-  style: ViewStyle;
+  visible: boolean;
+  toast: {
+    mode: 'alert' | 'banner-pop' | 'banner-slide' | 'hud';
+    type: 'complete' | 'error' | 'loading' | 'regular';
+    title: string;
+    subTitle: string;
+  };
 };
 
 const ComponentName = 'IosAlertToastView';
 
-export const IosAlertToastView =
+const IosAlertToastModuleView =
   UIManager.getViewManagerConfig(ComponentName) != null
     ? requireNativeComponent<IosAlertToastProps>(ComponentName)
     : () => {
         throw new Error(LINKING_ERROR);
       };
+
+export const IosAlertToastView = ({ visible, toast }: IosAlertToastProps) => {
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <IosAlertToastModuleView toast={toast} style={StyleSheet.absoluteFill} />
+  );
+};

@@ -4,6 +4,8 @@ import {
   UIManager,
   Platform,
   StyleSheet,
+  type ViewStyle,
+  type StyleProp,
 } from 'react-native';
 
 const LINKING_ERROR =
@@ -12,27 +14,47 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
+export type IosAlertToastModes =
+  | 'alert'
+  | 'banner-pop'
+  | 'banner-slide'
+  | 'hud';
+
+export type IosAlertToastTypes = 'complete' | 'error' | 'loading' | 'regular';
+
+export type IosAlertToastOptions = {
+  mode: IosAlertToastModes;
+  type: IosAlertToastTypes;
+  title: string;
+  subTitle?: string;
+};
+
+type IosAlertToastModuleProps = {
+  toast: IosAlertToastOptions;
+  style: StyleProp<ViewStyle>;
+};
+
 type IosAlertToastProps = {
-  visible: boolean;
-  toast: {
-    mode: 'alert' | 'banner-pop' | 'banner-slide' | 'hud';
-    type: 'complete' | 'error' | 'loading' | 'regular';
-    title: string;
-    subTitle: string;
-  };
+  toast: IosAlertToastOptions | null;
 };
 
 const ComponentName = 'IosAlertToastView';
 
 const IosAlertToastModuleView =
-  UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<IosAlertToastProps>(ComponentName)
-    : () => {
-        throw new Error(LINKING_ERROR);
-      };
+  Platform.OS !== 'ios'
+    ? () => null
+    : UIManager.getViewManagerConfig(ComponentName) != null
+      ? requireNativeComponent<IosAlertToastModuleProps>(ComponentName)
+      : () => {
+          throw new Error(LINKING_ERROR);
+        };
 
-export const IosAlertToastView = ({ visible, toast }: IosAlertToastProps) => {
-  if (!visible) {
+export const IosAlertToastView: React.FC<IosAlertToastProps> = ({ toast }) => {
+  if (Platform.OS !== 'ios') {
+    return null;
+  }
+
+  if (!toast || !toast.title) {
     return null;
   }
 

@@ -1,14 +1,29 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button, SafeAreaView } from 'react-native';
-import { IosAlertToastView } from 'react-native-ios-alert-toast';
+import {
+  IosAlertToastView,
+  type IosAlertToastModes,
+  type IosAlertToastOptions,
+  type IosAlertToastTypes,
+} from 'react-native-ios-alert-toast';
 
 export default function App() {
-  const [toast, setToast] = React.useState(null);
+  const [toast, setToast] = React.useState<IosAlertToastOptions | null>(null);
 
-  const toastModes = ['alert', 'banner-pop', 'banner-slide', 'hud'];
+  const toastModes: IosAlertToastModes[] = [
+    'alert',
+    'banner-pop',
+    'banner-slide',
+    'hud',
+  ];
 
-  const toastTypes = ['regular', 'complete', 'error', 'loading'];
+  const toastTypes: IosAlertToastTypes[] = [
+    'regular',
+    'complete',
+    'error',
+    'loading',
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,7 +34,7 @@ export default function App() {
               <Button
                 title={`${mode} ${type}`.toUpperCase()}
                 onPress={() => {
-                  setToast({ mode, type, title: 'Hello World!', subTitle: '' });
+                  setToast({ mode, type, title: 'Hello World!' });
                   setTimeout(() => setToast(null), 2000);
                 }}
               />
@@ -28,7 +43,7 @@ export default function App() {
         });
       })}
 
-      <IosAlertToastView visible={!!toast} toast={toast} />
+      <IosAlertToastView toast={toast} />
     </SafeAreaView>
   );
 }

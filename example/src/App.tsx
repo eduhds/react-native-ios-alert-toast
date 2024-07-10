@@ -34,7 +34,12 @@ export default function App() {
               <Button
                 title={`${mode} ${type}`.toUpperCase()}
                 onPress={() => {
-                  setToast({ mode, type, title: 'Hello World!' });
+                  setToast({
+                    mode,
+                    type,
+                    title: 'Alert Toast',
+                    subTitle: `${mode} ${type}`,
+                  });
                   setTimeout(() => setToast(null), 2000);
                 }}
               />

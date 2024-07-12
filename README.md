@@ -8,6 +8,7 @@
 React Native wrapper for iOS [AlertToast](https://github.com/elai950/AlertToast).
 
 > This library is only for iOS but will not break on Android!
+> If you need support for both, there are several libs for that.
 
 <p align="center">
     <img src="./example.gif" style="display: block; margin: auto;" width="180"/>
@@ -17,8 +18,10 @@ React Native wrapper for iOS [AlertToast](https://github.com/elai950/AlertToast)
 
 ```sh
 npm install react-native-ios-alert-toast
-# Or
+# With yarn
 yarn add react-native-ios-alert-toast
+
+cd ios && pod install
 ```
 
 ## Usage
